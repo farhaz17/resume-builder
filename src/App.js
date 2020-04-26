@@ -1,26 +1,77 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Router, Route, Link, browserHistory, IndexRoute } from 'react-router'
+import styles from './App.module.css';
+import Form from './components/Form/Form';
+import Resume from './components/Resume/Resume';
+class App extends React.Component {
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  state = {
+    basics: {
+      name: 'Farhaz',
+      email: 'farhaz@gmail.com',
+      address: 'safas Arikkady',
+      phone: '9898567456'
+    },
+    education: [{ year: "2020", degree: "Computer Science & Engg", institute: "BIT"}],
+    experience: [{ year: "2018", designation: "Software Devel", company: "Specbee"}],
+    skills:["Reactjs","Drupal","PHP"]
+  }
+
+  updateForm = ( name ) => e => {
+    console.log( e.target.value )
+    const { basics } = { ...this.state }
+    const currentState = basics;
+    currentState[name] = e.target.value
+    this.setState( { basics: currentState });
+  }
+  updateEducation = ( educationValue,i ) => e => {
+    this.state.education[ i ][educationValue] =  e.target.value
+    this.setState( { education: this.state.education } );
+  }
+
+  updateExperience = ( experienceValue,i ) => e => {
+    this.state.experience[ i ][experienceValue] =  e.target.value
+    this.setState( { experience: this.state.experience } );
+  }
+
+  updateSkills = ( skillsValue,i ) => e => {
+    this.state.skills[ i ] =  e.target.value
+    this.setState( { skills: this.state.skills } );
+  }
+
+  addEducationRow = (e) => {
+    this.setState((prevState) => ({
+        education: [...prevState.education, { year: "", degree: "", institute:"" }],
+    }));
+  }
+  addExperienceRow = (e) => {
+    this.setState((prevState) => ({
+        experience: [...prevState.experience, { year: "", designation: "", company:"" }],
+    }));
+  }
+
+  addSkillsRow = (e) => {
+    this.setState((prevState) => ({
+        skills: [...prevState.skills, ""],
+    }));
+  }
+
+  render () {
+    return (
+      <div>
+        {/* {console.log(this.state)} */}
+        {/* <p>{ this.state.basics.name }</p>
+        <p>{ this.state.basics.email }</p>
+        { console.log( this.state.basics ) } */}
+        {/* { console.log( this.state.education[0]["course"] ) } */}
+        {/* {this.state.education.length} */ }
+        <Router history = {browserHistory}>
+            <Route path = "/" component={ () => <Form updateForm={ this.updateForm } updateEducation={ this.updateEducation } updateExperience={ this.updateExperience } updateSkills={this.updateSkills} addEducationRow={ this.addEducationRow } addExperienceRow={ this.addExperienceRow } addSkillsRow={this.addSkillsRow} state={this.state} /> } />
+            <Route path = "resume" component={ () => <Resume state={this.state} /> } />
+      </Router>
+      </div>
+    );
+  }
 }
 
 export default App;
