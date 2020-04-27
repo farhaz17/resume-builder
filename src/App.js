@@ -7,14 +7,14 @@ class App extends React.Component {
 
   state = {
     basics: {
-      name: 'Farhaz',
-      email: 'farhaz@gmail.com',
-      address: 'safas Arikkady',
-      phone: '9898567456'
+      name: '',
+      email: '',
+      address: '',
+      phone: ''
     },
-    education: [{ year: "2020", degree: "Computer Science & Engg", institute: "BIT"}],
-    experience: [{ year: "2018", designation: "Software Devel", company: "Specbee"}],
-    skills:["Reactjs","Drupal","PHP"]
+    education: [{ year: "", degree: "", institute: ""}],
+    experience: [{ year: "", designation: "", company: ""}],
+    skills:["","",""]
   }
 
   updateForm = ( name ) => e => {
