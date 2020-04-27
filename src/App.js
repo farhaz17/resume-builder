@@ -14,7 +14,7 @@ class App extends React.Component {
     },
     education: [{ year: "", degree: "", institute: ""}],
     experience: [{ year: "", designation: "", company: ""}],
-    skills:["","",""]
+    skills:[""]
   }
 
   updateForm = ( name ) => e => {
